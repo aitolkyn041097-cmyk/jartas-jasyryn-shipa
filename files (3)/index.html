@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Жартастағы жасырын шипа — ғылыми-зерттеу жобасы</title>
+<meta name="description" content="Тастың майы: халық медицинасындағы қолданылуы, табиғи ерекшеліктері және тұрғындардың танымы туралы интерактивті сауалнама.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= ФОН ================= -->
+<canvas id="bg-canvas"></canvas>
+<div class="bg-mountains" aria-hidden="true">
+  <svg data-parallax="0.04" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:62vh;">
+    <polygon points="0,500 0,300 180,180 340,280 520,140 700,260 900,120 1080,270 1260,160 1440,290 1600,220 1600,500" fill="#16233a"></polygon>
+  </svg>
+  <svg data-parallax="0.09" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:48vh;">
+    <polygon points="0,500 0,360 220,220 400,340 600,200 820,350 1040,180 1240,340 1440,240 1600,340 1600,500" fill="#1c2c42"></polygon>
+  </svg>
+  <svg data-parallax="0.16" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:34vh;">
+    <polygon points="0,500 0,420 260,300 480,410 720,280 960,420 1200,300 1440,410 1600,360 1600,500" fill="#233350"></polygon>
+  </svg>
+</div>
+<div class="bg-vignette" aria-hidden="true"></div>
+<div class="bg-grain" aria-hidden="true"></div>
+
+<!-- toast -->
+<div id="toast-wrap" aria-live="polite"></div>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <a href="#" class="brand" onclick="switchView('home'); return false;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 20l5-9 4 5 3-6 6 10H3z"/></svg>
+    Жартастағы жасырын шипа
+  </a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Мәзірді ашу">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <ul class="nav-links" id="nav-links">
+    <li><button data-view="home" class="active">Басты бет</button></li>
+    <li><button data-view="about">Жоба туралы</button></li>
+    <li><button data-view="survey">Сауалнама</button></li>
+    <li><button data-view="results">Нәтижелер</button></li>
+  </ul>
+</nav>
+
+<!-- ================= БАСТЫ БЕТ ================= -->
+<div class="view active" id="view-home">
+  <section class="hero">
+    <span class="eyebrow">Ғылыми-зерттеу жобасы · Шығыс Қазақстан</span>
+    <h1>ЖАРТАСТАҒЫ <span class="gold-word">ЖАСЫРЫН ШИПА</span></h1>
+    <p class="lede">«Тастың майы — табиғат құпиясы ма, әлде халық медицинасындағы шипалы мұра ма?»</p>
+    <p class="desc">Бұл интерактивті зерттеу Шығыс Қазақстан өңіріндегі табиғи тас майы туралы тұрғындардың білімін, тәжірибесін және көзқарасын анықтауға арналған.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="startSurvey()">Сауалнамаға қатысу</button>
+      <button class="btn btn-ghost" onclick="switchView('about')">Жоба туралы</button>
+      <button class="btn btn-outline" onclick="switchView('results')">Нәтижелерді көру</button>
+    </div>
+
+    <div class="wrap" style="margin-top:10px;">
+      <div class="stat-strip">
+        <div class="stat-cell"><div class="num" id="hero-stat-total">0</div><div class="lbl">Барлық қатысушы</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-auyl">0</div><div class="lbl">🏡 Ауыл тұрғыны</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-oqushy">0</div><div class="lbl">🎓 Оқушы</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-mugalim">0</div><div class="lbl">👩‍🏫 Мұғалім</div></div>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>төмен қарай айналдырыңыз</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+</div>
+
+<!-- ================= ЖОБА ТУРАЛЫ ================= -->
+<div class="view" id="view-about">
+  <section class="wrap" style="padding-top:130px;">
+    <div class="section-head">
+      <span class="eyebrow">Жоба туралы</span>
+      <h2>Жартастағы жасырын шипа</h2>
+      <p>Зерттеу бағыты — табиғи ресурстар және халықтық білім.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-block">
+        <h3>Зерттеу нысаны</h3>
+        <p>Шығыс Қазақстан өңіріндегі табиғи тас майы туралы халықтың танымы мен дәстүрлі қолданылуы.</p>
+        <h3 style="margin-top:28px;">Зерттеу мақсаты</h3>
+        <p>Тастың майы туралы тұрғындардың, оқушылардың және мұғалімдердің білім деңгейін анықтап, оның халықтық тәжірибедегі орнына ғылыми тұрғыдан қызығушылық қалыптастыру.</p>
+
+        <h3 style="margin-top:28px;">Зерттеу міндеттері</h3>
+        <ul class="task-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Тастың майы туралы ақпарат жинау</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Ауыл тұрғындары арасында сауалнама жүргізу</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Оқушылардың білім деңгейін анықтау</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Мұғалімдердің пікірін зерттеу</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Нәтижелерді статистикалық талдау</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Диаграммалар арқылы визуализациялау</li>
+        </ul>
+
+        <div class="glass" style="padding:18px 20px; margin-top:28px; border-color:rgba(200,162,74,0.3);">
+          <p style="margin:0; font-size:.92rem; color:var(--c-ink-dim);">⚠️ Ескерту: бұл жоба тастың майының ауруды емдейтіні туралы медициналық уәде бермейді. Барлық тұжырымдар «халықтық тәжірибеде қолданылған» немесе «дәстүрлі түрде пайдаланылған» деген бейтарап ғылыми қалыпта беріледі.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="glass info-card">
+          <div class="k">Жоба атауы</div>
+          <div class="v">Жартастағы жасырын шипа</div>
+        </div>
+        <div class="glass info-card">
+          <div class="k">Тақырып</div>
+          <div class="v" style="font-size:1rem;">Тастың майы: халық медицинасындағы қолданылуы, табиғи ерекшеліктері және тұрғындардың танымы</div>
+        </div>
+        <div class="glass info-card">
+          <div class="k">Аймақ</div>
+          <div class="v" style="font-size:1rem;">Шығыс Қазақстан облысы</div>
+        </div>
+        <div class="glass info-card" style="margin-bottom:0;">
+          <div class="k">Қатысушылар</div>
+          <div class="v" style="font-size:1rem;">Ауыл тұрғындары, мектеп оқушылары, мектеп мұғалімдері</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:56px;">
+      <button class="btn btn-primary" onclick="startSurvey()">Сауалнамаға қатысу</button>
+    </div>
+  </section>
+</div>
+
+<!-- ================= САУАЛНАМА ================= -->
+<div class="view" id="view-survey">
+  <div class="survey-shell">
+    <div class="glass survey-card" id="survey-card">
+      <div id="survey-card-body">
+        <div class="survey-top">
+          <span class="survey-counter" id="survey-counter">1/20 сұрақ</span>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-pct" id="progress-pct">0%</span>
+        </div>
+        <div class="q-wrap" id="q-wrap"></div>
+        <div class="nav-buttons">
+          <button class="btn btn-ghost btn-sm" id="btn-prev">← Артқа</button>
+          <button class="btn btn-primary btn-sm" id="btn-next">Келесі</button>
+        </div>
+      </div>
+
+      <div class="done-screen" id="done-screen" style="display:none;">
+        <div class="done-emoji">🎉</div>
+        <h2>ЗЕРТТЕУГЕ ҮЛЕС ҚОСТЫҢЫЗ!</h2>
+        <p style="color:var(--c-ink-dim); max-width:440px; margin:0 auto 28px;">Сіздің жауабыңыз «Жартастағы жасырын шипа» ғылыми-зерттеу жобасына маңызды дерек болады!</p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="switchView('results')">Нәтижелерді көру</button>
+          <button class="btn btn-ghost" onclick="startSurvey()">Тағы бір рет толтыру</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= НӘТИЖЕЛЕР ================= -->
+<div class="view" id="view-results">
+  <section class="wrap" style="padding-top:130px;">
+    <div class="section-head">
+      <span class="eyebrow">Зерттеуші дашборды</span>
+      <h2>Сауалнама нәтижелері</h2>
+      <p>Барлық қатысушының жауабы бір жерге жиналуы үшін config.js файлында орталық база қосылған болуы керек.</p>
+      <div id="db-status" class="db-status">Тексерілуде...</div>
+    </div>
+    <div style="margin-bottom:26px;">
+      <button class="btn btn-ghost btn-sm" id="btn-refresh-dash">🔄 Жаңарту</button>
+    </div>
+
+    <div id="dash-empty" class="glass empty-state">
+      <div class="icon">📭</div>
+      <h3>Әзірге дерек жоқ</h3>
+      <p>Нәтижелерді көру үшін алдымен сауалнамаға қатысыңыз, немесе көрсету мақсатында демо деректер жасаңыз.</p>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:18px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startSurvey()">Сауалнамаға қатысу</button>
+        <button class="btn btn-outline" onclick="generateDemoData()">🧪 Демо деректер жасау</button>
+      </div>
+    </div>
+
+    <div id="dash-body" style="display:none;">
+      <div class="dash-stats">
+        <div class="glass dash-stat"><div class="icon">📊</div><div class="num" id="stat-total">0</div><div class="lbl">Жалпы қатысушылар</div></div>
+        <div class="glass dash-stat"><div class="icon">🏡</div><div class="num" id="stat-auyl">0</div><div class="lbl">Ауыл тұрғындары</div></div>
+        <div class="glass dash-stat"><div class="icon">🎓</div><div class="num" id="stat-oqushy">0</div><div class="lbl">Оқушылар</div></div>
+        <div class="glass dash-stat"><div class="icon">👩‍🏫</div><div class="num" id="stat-mugalim">0</div><div class="lbl">Мұғалімдер</div></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="glass chart-card">
+          <h4>Қатысушылардың топтары</h4>
+          <div class="chart-box"><canvas id="chart-pie"></canvas></div>
+        </div>
+        <div class="glass chart-card">
+          <h4>«Тастың майы туралы естідіңіз бе?»</h4>
+          <div class="chart-box"><canvas id="chart-heard"></canvas></div>
+        </div>
+        <div class="glass chart-card">
+          <h4>Ақпаратты қайдан алған?</h4>
+          <div class="chart-box"><canvas id="chart-source"></canvas></div>
+        </div>
+        <div class="glass chart-card">
+          <h4>Тастың майын қолданған адамдар саны</h4>
+          <div class="chart-box"><canvas id="chart-used"></canvas></div>
+        </div>
+        <div class="glass chart-card">
+          <h4>Табиғи өнімдерді ғылыми зерттеу қажет пе?</h4>
+          <div class="chart-box"><canvas id="chart-research"></canvas></div>
+        </div>
+        <div class="glass chart-card">
+          <h4>Жас ерекшелігі бойынша</h4>
+          <div class="chart-box"><canvas id="chart-age"></canvas></div>
+        </div>
+      </div>
+
+      <div class="glass ai-card">
+        <div class="ai-head">
+          <span class="dot"></span>
+          <h3 style="margin:0;">🤖 ЗЕРТТЕУ AI ТАЛДАУЫ</h3>
+          <span class="ai-tag">DEMO AI ANALYSIS</span>
+        </div>
+        <p id="ai-analysis-text">Талдау дайындалуда...</p>
+      </div>
+
+      <div class="export-row">
+        <button class="btn btn-outline" onclick="exportJSON()">📥 Нәтижелерді JSON форматында жүктеу</button>
+        <button class="btn btn-outline" onclick="exportCSV()">📊 CSV жүктеу</button>
+        <button class="btn btn-primary" onclick="exportPDF()">📄 PDF есеп</button>
+        <button class="btn btn-ghost" onclick="clearAllData()">🗑️ Деректерді тазалау</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="ornament-divider" style="margin-bottom:22px;">
+    <span class="line"></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg>
+    <span class="line"></span>
+  </div>
+  <div class="f-title">ЖАРТАСТАҒЫ ЖАСЫРЫН ШИПА</div>
+  <div class="f-sub">Ғылыми-зерттеу жобасы · © 2026</div>
+  <div class="f-quote">«Табиғат құпиясын ғылым арқылы тану»</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
