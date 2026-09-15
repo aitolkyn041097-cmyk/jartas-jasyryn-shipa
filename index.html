@@ -244,6 +244,14 @@ section{padding:96px 0;}
   width:100%; max-width:680px; padding:clamp(24px,4vw,48px);
   position:relative;
 }
+.survey-close{
+  position:absolute; top:14px; right:14px; z-index:3;
+  width:38px; height:38px; padding:0; border-radius:50%;
+  border:1px solid var(--c-line); background:rgba(12,23,35,.72);
+  color:var(--c-ink-dim); font-size:1.55rem; line-height:1;
+  cursor:pointer; transition:all .2s var(--ease);
+}
+.survey-close:hover{color:var(--c-ink); border-color:var(--c-gold); background:rgba(200,162,74,.12);}
 .survey-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:14px;}
 .survey-counter{font-size:.85rem; color:var(--c-ink-dim); white-space:nowrap;}
 .progress-track{
@@ -348,6 +356,15 @@ section{padding:96px 0;}
 .ai-card .ai-tag{font-size:.72rem; color:var(--c-ink-dim); border:1px solid var(--c-line); padding:3px 10px; border-radius:999px; margin-left:auto;}
 
 .export-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:34px;}
+.responses-card{padding:24px; margin-top:22px;}
+.responses-card h3{margin-bottom:16px;}
+.responses-table-wrap{overflow-x:auto; border:1px solid var(--c-line); border-radius:var(--radius-md);}
+.responses-table{width:100%; border-collapse:collapse; min-width:880px; font-size:.82rem;}
+.responses-table th,.responses-table td{padding:11px 12px; text-align:left; border-bottom:1px solid var(--c-line); white-space:nowrap;}
+.responses-table th{position:sticky; top:0; color:var(--c-gold-bright); background:#17263a; font-weight:700;}
+.responses-table td{color:var(--c-ink-dim);}
+.responses-table tr:last-child td{border-bottom:0;}
+.responses-table tbody tr:hover{background:rgba(200,162,74,.06);}
 
 .empty-state{text-align:center; padding:80px 20px; color:var(--c-ink-dim);}
 .empty-state .icon{font-size:2.6rem; margin-bottom:14px;}
@@ -504,6 +521,7 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
 <div class="view" id="view-survey">
   <div class="survey-shell">
     <div class="glass survey-card" id="survey-card">
+      <button class="survey-close" type="button" onclick="closeSurvey()" aria-label="Сауалнаманы жабу" title="Жабу">×</button>
       <div id="survey-card-body">
         <div class="survey-top">
           <span class="survey-counter" id="survey-counter">1/20 сұрақ</span>
@@ -536,7 +554,7 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
     <div class="section-head">
       <span class="eyebrow">Зерттеуші дашборды</span>
       <h2>Сауалнама нәтижелері</h2>
-      <p>Барлық деректер осы құрылғының жадында (LocalStorage) сақталады.</p>
+      <p>Нәтижелер <code>data/responses.json</code> файлындағы 50 демонстрациялық жауап бойынша көрсетіледі.</p>
     </div>
 
     <div id="dash-empty" class="glass empty-state">
@@ -582,6 +600,10 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
           <h4>Жас ерекшелігі бойынша</h4>
           <div class="chart-box"><canvas id="chart-age"></canvas></div>
         </div>
+        <div class="glass chart-card">
+          <h4>Демонстрациялық жауаптардың бағасы</h4>
+          <div class="chart-box"><canvas id="chart-quality"></canvas></div>
+        </div>
       </div>
 
       <div class="glass ai-card">
@@ -593,11 +615,22 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
         <p id="ai-analysis-text">Талдау дайындалуда...</p>
       </div>
 
+      <div class="glass responses-card">
+        <h3>Қатысушылардың жауаптары</h3>
+        <div class="responses-table-wrap">
+          <table class="responses-table">
+            <thead>
+              <tr><th>№</th><th>Топ</th><th>Жасы</th><th>Елді мекені</th><th>Естіген</th><th>Қолданған</th><th>Бағасы</th><th>Нәтиже</th></tr>
+            </thead>
+            <tbody id="responses-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="export-row">
         <button class="btn btn-outline" onclick="exportJSON()">📥 Нәтижелерді JSON форматында жүктеу</button>
         <button class="btn btn-outline" onclick="exportCSV()">📊 CSV жүктеу</button>
         <button class="btn btn-primary" onclick="exportPDF()">📄 PDF есеп</button>
-        <button class="btn btn-ghost" onclick="clearAllData()">🗑️ Деректерді тазалау</button>
       </div>
     </div>
   </section>
@@ -617,7 +650,6 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 /* =========================================================
    Сауалнама сұрақтарының деректер жиыны
@@ -772,6 +804,7 @@ const LS_KEY = 'jjs_responses_v1';
 
 const state = {
   view: 'home',
+  previousView: 'home',
   stepIndex: 0,
   answers: {},
   charts: {},
@@ -806,6 +839,7 @@ document.addEventListener('click', (e) => {
 
 /* ---------------- navigation between views ---------------- */
 function switchView(name) {
+  if (name === 'survey' && state.view !== 'survey') state.previousView = state.view;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   document.querySelectorAll('.nav-links button').forEach(b => b.classList.toggle('active', b.dataset.view === name));
@@ -822,6 +856,10 @@ function startSurvey() {
   document.getElementById('survey-card-body').style.display = 'block';
   switchView('survey');
   renderStep();
+}
+
+function closeSurvey() {
+  switchView(state.previousView === 'survey' ? 'home' : state.previousView);
 }
 
 /* ---------------- survey engine ---------------- */
@@ -942,27 +980,84 @@ function prevStep() {
   renderStep();
 }
 
-function finishSurvey() {
+async function finishSurvey() {
   const record = Object.assign({}, state.answers, { _id: 'r' + Date.now() + Math.random().toString(16).slice(2), _ts: new Date().toISOString() });
-  const all = loadResponses();
-  all.push(record);
-  saveResponses(all);
-
-  document.getElementById('survey-card-body').style.display = 'none';
-  const done = document.getElementById('done-screen');
-  done.style.display = 'block';
-  launchConfetti();
-  toast('Жауабыңыз сақталды', '🎉');
+  try {
+    await saveResponses(record);
+    document.getElementById('survey-card-body').style.display = 'none';
+    const done = document.getElementById('done-screen');
+    done.style.display = 'block';
+    launchConfetti();
+    toast('Жауабыңыз сақталды', '🎉');
+  } catch (error) {
+    console.error(error);
+    state.stepIndex = Math.max(0, currentSteps().length - 1);
+    renderStep();
+    toast('Жауапты сақтау мүмкін болмады', '⚠️');
+  }
 }
 
 /* ---------------- деректерді сақтау ---------------- */
-function loadResponses() {
+function loadLocalResponses() {
   try {
-    return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-  } catch (e) { return []; }
+    const data = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
 }
-function saveResponses(arr) {
-  localStorage.setItem(LS_KEY, JSON.stringify(arr));
+
+async function loadResponses() {
+  try {
+    const jsonUrl = new URL('data/responses.json', window.location.href);
+    const response = await fetch(jsonUrl, { cache: 'no-store' });
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data) && data.length) return data;
+    }
+  } catch (error) {
+    console.warn('JSON файлын тікелей оқу бұғатталды, демо көшірме қолданылады:', error);
+  }
+  return createDemoFallback();
+}
+
+function createDemoFallback() {
+  const quality = Array.from({ length: 28 }, () => ['Өте жақсы', 5])
+    .concat(Array.from({ length: 17 }, () => ['Жақсы', 4]))
+    .concat(Array.from({ length: 5 }, () => ['Жаман емес', 3]));
+  const types = ['auyl', 'oqushy', 'mugalim'];
+  const ages = ['10–14', '15–18', '19–30', '31–45', '46–60', '60+'];
+  const sources = ['Ата-әжелерден', 'Ауыл тұрғындарынан', 'Интернеттен', 'Мектептен'];
+
+  return quality.map(([resultLabel, rating], index) => ({
+    _id: `demo-${String(index + 1).padStart(3, '0')}`,
+    _ts: new Date(Date.UTC(2026, 8, 1, 8, index * 5)).toISOString(),
+    _demo: true,
+    result_label: resultLabel,
+    q_type: types[index % types.length],
+    age: ages[index % ages.length],
+    gender: index % 2 ? 'Ер адам' : 'Әйел',
+    location: index % 3 === 0 ? 'Катонқарағай ауданы' : 'Өскемен қаласы',
+    q1_heard: index < 27 ? 'Иә' : 'Жоқ',
+    q2_source: [sources[index % sources.length]],
+    q3_what: index < 25 ? 'Табиғи минералды зат' : 'Нақты білмеймін',
+    q4_seen: index < 20 ? 'Иә' : 'Жоқ',
+    q5_know_users: index < 22 ? 'Иә' : 'Жоқ',
+    q6_purpose: [index < 25 ? 'Халық медицинасында' : 'Білмеймін'],
+    q7_used: index < 18 ? 'Иә' : 'Жоқ',
+    q9_experience: rating,
+    q10_research_need: index < 17 ? 'Өте қажет' : index < 27 ? 'Қажет' : 'Білмеймін',
+  }));
+}
+
+async function saveResponses(records) {
+  const current = loadLocalResponses();
+  const additions = Array.isArray(records) ? records : [records];
+  const knownIds = new Set(current.map(item => item._id));
+  additions.forEach(item => {
+    if (!knownIds.has(item._id)) current.push(item);
+  });
+  localStorage.setItem(LS_KEY, JSON.stringify(current));
 }
 
 /* ---------------- confetti ---------------- */
@@ -996,13 +1091,25 @@ function tally(arr, key) {
   return m;
 }
 
-function renderDashboard() {
-  const data = loadResponses();
+async function renderDashboard() {
   const empty = document.getElementById('dash-empty');
   const body = document.getElementById('dash-body');
+  let data;
+  try {
+    data = await loadResponses();
+  } catch (error) {
+    console.error(error);
+    empty.style.display = 'block';
+    body.style.display = 'none';
+    empty.querySelector('h3').textContent = 'Деректерді жүктеу мүмкін болмады';
+    empty.querySelector('p').textContent = 'Браузер деректеріне қолжетімділікті тексеріп, бетті қайта жүктеңіз.';
+    return;
+  }
   if (!data.length) {
     empty.style.display = 'block';
     body.style.display = 'none';
+    empty.querySelector('h3').textContent = 'Әзірге дерек жоқ';
+    empty.querySelector('p').textContent = 'Нәтижелерді көру үшін алдымен сауалнамаға қатысыңыз, немесе көрсету мақсатында демо деректер жасаңыз.';
     return;
   }
   empty.style.display = 'none';
@@ -1018,13 +1125,43 @@ function renderDashboard() {
   document.getElementById('stat-oqushy').textContent = nOqushy;
   document.getElementById('stat-mugalim').textContent = nMugalim;
 
+  renderAIAnalysis(data, { total, nAuyl, nOqushy, nMugalim });
+  renderResponseTable(data);
+  if (typeof Chart === 'undefined') {
+    toast('Диаграмма кітапханасы жүктелмеді, жауаптар кестеде көрсетілді', '⚠️');
+    return;
+  }
   drawGroupPie(data, nAuyl, nOqushy, nMugalim);
   drawHeardBar(data);
   drawSourceDoughnut(data);
   drawUsedBar(data);
   drawResearchNeedBar(data);
   drawAgeChart(data);
-  renderAIAnalysis(data, { total, nAuyl, nOqushy, nMugalim });
+  drawQualityChart(data);
+}
+
+function escHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function renderResponseTable(data) {
+  const tbody = document.getElementById('responses-table-body');
+  tbody.innerHTML = data.map((record, index) => `
+    <tr>
+      <td>${index + 1}</td>
+      <td>${escHtml(GROUP_LABELS[record.q_type] || record.q_type)}</td>
+      <td>${escHtml(record.age)}</td>
+      <td>${escHtml(record.location)}</td>
+      <td>${escHtml(record.q1_heard)}</td>
+      <td>${escHtml(record.q7_used)}</td>
+      <td>${record.q9_experience ? `${escHtml(record.q9_experience)}/5` : '—'}</td>
+      <td>${escHtml(record.result_label || 'Нақты жауап')}</td>
+    </tr>`).join('');
 }
 
 const CHART_PALETTE = ['#c8a24a', '#e0bd6a', '#8a5a34', '#7fae7a', '#5b6779', '#cfc9ba'];
@@ -1157,6 +1294,27 @@ function drawAgeChart(data) {
   });
 }
 
+function drawQualityChart(data) {
+  destroyChart('quality');
+  const demoData = data.filter(r => r._demo === true);
+  const t = tally(demoData, 'result_label');
+  const labels = ['Өте жақсы', 'Жақсы', 'Жаман емес'];
+  const ctx = document.getElementById('chart-quality');
+  state.charts.quality = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: labels.map(label => t[label] || 0),
+        backgroundColor: [CHART_PALETTE[0], CHART_PALETTE[3], CHART_PALETTE[4]],
+        borderColor: '#142235',
+        borderWidth: 2,
+      }],
+    },
+    options: baseOptions(),
+  });
+}
+
 /* ---------------- AI ДЕМО ТАЛДАУЫ ---------------- */
 function renderAIAnalysis(data, meta) {
   const heard = tally(data, 'q1_heard');
@@ -1188,19 +1346,19 @@ function renderAIAnalysis(data, meta) {
 }
 
 /* ---------------- демо деректер ---------------- */
-function generateDemoData() {
+async function generateDemoData() {
   const sources = ['Ата-анамнан', 'Ата-әжелерден', 'Ауыл тұрғындарынан', 'Интернеттен', 'Әлеуметтік желіден', 'Мектептен'];
   const purposes = ['Халық медицинасында', 'Тері күтімінде', 'Шаш күтімінде', 'Жалпы денсаулықты қолдау мақсатында', 'Білмеймін'];
   const types = ['auyl', 'oqushy', 'mugalim'];
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const pickMulti = (arr) => arr.filter(() => Math.random() > 0.55).length ? arr.filter(() => Math.random() > 0.55) : [pick(arr)];
 
-  const all = loadResponses();
+  const demoRecords = [];
   for (let i = 0; i < 40; i++) {
     const type = pick(types);
     const heard = Math.random() > 0.25 ? 'Иә' : 'Жоқ';
     const used = heard === 'Иә' && Math.random() > 0.45 ? 'Иә' : 'Жоқ';
-    all.push({
+    demoRecords.push({
       _id: 'demo' + Date.now() + i,
       _ts: new Date().toISOString(),
       q_type: type,
@@ -1223,29 +1381,27 @@ function generateDemoData() {
       q14_what_info: '',
     });
   }
-  saveResponses(all);
-  toast('Демо деректер қосылды', '🧪');
-  renderDashboard();
-}
-
-function clearAllData() {
-  if (!confirm('Барлық сақталған сауалнама деректерін өшіргіңіз келе ме? Бұл әрекетті қайтару мүмкін емес.')) return;
-  localStorage.removeItem(LS_KEY);
-  toast('Деректер тазаланды', '🗑️');
-  renderDashboard();
+  try {
+    await saveResponses(demoRecords);
+    toast('Демо деректер қосылды', '🧪');
+    await renderDashboard();
+  } catch (error) {
+    console.error(error);
+    toast('Демо деректерді сақтау мүмкін болмады', '⚠️');
+  }
 }
 
 /* ---------------- экспорт: JSON / CSV / PDF ---------------- */
-function exportJSON() {
-  const data = loadResponses();
+async function exportJSON() {
+  const data = await loadResponses();
   if (!data.length) { toast('Экспорттауға дерек жоқ', '⚠️'); return; }
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   downloadBlob(blob, 'zhartastagy-jasyryn-shipa-nәtijeler.json');
   toast('JSON файлы жүктелді', '📥');
 }
 
-function exportCSV() {
-  const data = loadResponses();
+async function exportCSV() {
+  const data = await loadResponses();
   if (!data.length) { toast('Экспорттауға дерек жоқ', '⚠️'); return; }
   const cols = Array.from(data.reduce((set, r) => { Object.keys(r).forEach(k => set.add(k)); return set; }, new Set()));
   const esc = (v) => {
@@ -1268,7 +1424,7 @@ function downloadBlob(blob, filename) {
 }
 
 async function exportPDF() {
-  const data = loadResponses();
+  const data = await loadResponses();
   if (!data.length) { toast('Экспорттауға дерек жоқ', '⚠️'); return; }
   toast('PDF есеп дайындалуда...', '⏳');
   try {
@@ -1277,40 +1433,96 @@ async function exportPDF() {
     const pageW = doc.internal.pageSize.getWidth();
     let y = 50;
 
+    doc.setTextColor(25, 34, 48);
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(18);
     doc.text('Zhartastagy Jasyryn Shipa', pageW / 2, y, { align: 'center' }); y += 22;
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
-    doc.text('Gylymi-zertteu jobasy - saualnama esebi', pageW / 2, y, { align: 'center' }); y += 30;
+    doc.text('Survey report - SYNTHETIC DEMO DATA', pageW / 2, y, { align: 'center' }); y += 30;
 
     const total = data.length;
     const nAuyl = count(data, r => r.q_type === 'auyl');
     const nOqushy = count(data, r => r.q_type === 'oqushy');
     const nMugalim = count(data, r => r.q_type === 'mugalim');
 
-    doc.setFontSize(12);
-    doc.text(`Qatysushylar sany: ${total}`, 50, y); y += 18;
-    doc.text(`Auyl turgyny: ${nAuyl}    Oqushy: ${nOqushy}    Mugalim: ${nMugalim}`, 50, y); y += 26;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.text(`Participants: ${total}`, 50, y); y += 21;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.text(`Village residents: ${nAuyl}    Students: ${nOqushy}    Teachers: ${nMugalim}`, 50, y); y += 24;
 
     const heard = tally(data, 'q1_heard');
     const used = tally(data, 'q7_used');
-    doc.text(`"Tastyn' mayy" turaly estigender: ${heard['Иә'] || 0} / ${total}`, 50, y); y += 18;
-    doc.text(`Qoldangandar sany: ${used['Иә'] || 0} / ${total}`, 50, y); y += 30;
+    doc.text(`Heard about stone oil: ${heard['Иә'] || 0} / ${total}`, 50, y); y += 18;
+    doc.text(`Used stone oil: ${used['Иә'] || 0} / ${total}`, 50, y); y += 30;
 
-    doc.setFontSize(14);
-    doc.text('Diagrammalar:', 50, y); y += 14;
+    const quality = tally(data.filter(r => r._demo), 'result_label');
+    const qualityRows = [
+      ['Excellent', quality['Өте жақсы'] || 0, [200, 162, 74]],
+      ['Good', quality['Жақсы'] || 0, [127, 174, 122]],
+      ['Not bad', quality['Жаман емес'] || 0, [91, 103, 121]],
+    ];
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.text('Result distribution', 50, y); y += 20;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    qualityRows.forEach(([label, value, color]) => {
+      const pct = total ? Math.round((value / total) * 100) : 0;
+      doc.text(`${label}: ${value} (${pct}%)`, 50, y + 10);
+      doc.setFillColor(232, 235, 239);
+      doc.roundedRect(175, y, 320, 12, 3, 3, 'F');
+      doc.setFillColor(...color);
+      doc.roundedRect(175, y, 320 * value / total, 12, 3, 3, 'F');
+      y += 24;
+    });
 
-    const chartIds = ['chart-pie', 'chart-heard', 'chart-source', 'chart-used', 'chart-research', 'chart-age'];
-    for (const id of chartIds) {
-      const el = document.getElementById(id);
-      if (!el) continue;
-      const canvasImg = await html2canvas(el.closest('.chart-card'), { backgroundColor: '#142235', scale: 2 });
-      const imgData = canvasImg.toDataURL('image/png');
-      const imgW = pageW - 100;
-      const imgH = imgW * (canvasImg.height / canvasImg.width);
-      if (y + imgH > 780) { doc.addPage(); y = 50; }
-      doc.addImage(imgData, 'PNG', 50, y, imgW, imgH);
-      y += imgH + 16;
+    const groupPdf = { auyl: 'Village', oqushy: 'Student', mugalim: 'Teacher' };
+    const yesNoPdf = { 'Иә': 'Yes', 'Жоқ': 'No' };
+    const resultPdf = { 'Өте жақсы': 'Excellent', 'Жақсы': 'Good', 'Жаман емес': 'Not bad' };
+
+    function drawPdfTableHeader() {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.text('#', 38, y);
+      doc.text('Group', 62, y);
+      doc.text('Age', 130, y);
+      doc.text('Heard', 185, y);
+      doc.text('Used', 240, y);
+      doc.text('Score', 292, y);
+      doc.text('Result', 345, y);
+      doc.text('ID', 430, y);
+      doc.line(38, y + 5, pageW - 38, y + 5);
+      doc.setFont('helvetica', 'normal');
+      y += 18;
     }
+
+    doc.addPage();
+    y = 44;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(15);
+    doc.text('Participant answers', 38, y); y += 24;
+    drawPdfTableHeader();
+
+    data.forEach((record, index) => {
+      if (y > 790) {
+        doc.addPage();
+        y = 44;
+        drawPdfTableHeader();
+      }
+      doc.setFontSize(8.5);
+      doc.text(String(index + 1), 38, y);
+      doc.text(groupPdf[record.q_type] || '-', 62, y);
+      doc.text(String(record.age || '-'), 130, y);
+      doc.text(yesNoPdf[record.q1_heard] || '-', 185, y);
+      doc.text(yesNoPdf[record.q7_used] || '-', 240, y);
+      doc.text(record.q9_experience ? `${record.q9_experience}/5` : '-', 292, y);
+      doc.text(resultPdf[record.result_label] || 'Response', 345, y);
+      doc.text(String(record._id || '-'), 430, y);
+      y += 15;
+    });
 
     doc.save('zhartastagy-jasyryn-shipa-esep.pdf');
     toast('PDF есеп жүктелді', '📄');
@@ -1374,12 +1586,12 @@ function initParallax() {
 }
 
 /* ---------------- init ---------------- */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initFogCanvas();
   initParallax();
 
   document.querySelectorAll('.nav-links button[data-view]').forEach(btn => {
-    btn.addEventListener('click', () => switchView(btn.dataset.view));
+    btn.addEventListener('click', () => btn.dataset.view === 'survey' ? startSurvey() : switchView(btn.dataset.view));
   });
   document.getElementById('nav-toggle').addEventListener('click', () => {
     document.getElementById('nav-links').classList.toggle('open');
@@ -1389,11 +1601,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-prev').addEventListener('click', prevStep);
 
   // Hero stat strip (based on already-saved responses, if any)
-  const data = loadResponses();
-  document.getElementById('hero-stat-total').textContent = data.length;
-  document.getElementById('hero-stat-auyl').textContent = count(data, r => r.q_type === 'auyl');
-  document.getElementById('hero-stat-oqushy').textContent = count(data, r => r.q_type === 'oqushy');
-  document.getElementById('hero-stat-mugalim').textContent = count(data, r => r.q_type === 'mugalim');
+  try {
+    const data = await loadResponses();
+    document.getElementById('hero-stat-total').textContent = data.length;
+    document.getElementById('hero-stat-auyl').textContent = count(data, r => r.q_type === 'auyl');
+    document.getElementById('hero-stat-oqushy').textContent = count(data, r => r.q_type === 'oqushy');
+    document.getElementById('hero-stat-mugalim').textContent = count(data, r => r.q_type === 'mugalim');
+  } catch (error) {
+    console.error('Не удалось загрузить статистику:', error);
+  }
 
   switchView('home');
 });
