@@ -348,6 +348,38 @@ section{padding:96px 0;}
 .chart-card h4{font-size:1rem; margin-bottom:16px; color:var(--c-ink);}
 .chart-card .chart-box{position:relative; height:280px;}
 .chart-card .chart-note{font-size:.78rem; color:var(--c-ink-dim); margin-top:10px;}
+.chart-card .chart-sub{color:var(--c-ink-dim); font-size:.86rem; margin:-8px 0 22px;}
+.donut-layout{display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap; min-height:245px;}
+.result-donut{
+  width:190px; height:190px; border-radius:50%; position:relative; flex:0 0 auto;
+  transform:rotate(-90deg); transition:background .55s var(--ease);
+  box-shadow:0 0 0 1px var(--glass-border), 0 18px 45px rgba(4,8,14,.28);
+}
+.result-donut::after{content:""; position:absolute; inset:25%; border-radius:50%; background:var(--c-bg-1); box-shadow:inset 0 0 0 1px var(--c-line);}
+.donut-center{
+  position:absolute; inset:25%; display:flex; align-items:center; justify-content:center; flex-direction:column;
+  z-index:1; transform:rotate(90deg); font-family:var(--font-display); color:var(--c-gold-bright);
+  font-size:1.55rem; font-weight:700; line-height:1;
+}
+.donut-center small{font-family:var(--font-body); font-size:.65rem; color:var(--c-ink-dim); font-weight:600; margin-top:5px;}
+.chart-legend{list-style:none; margin:0; padding:0; flex:1 1 190px;}
+.chart-legend li{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:9px; margin:12px 0; color:var(--c-ink-dim); font-size:.88rem;}
+.legend-dot{width:12px; height:12px; border-radius:4px; box-shadow:0 0 0 1px rgba(255,255,255,.12);}
+.chart-legend b{color:var(--c-ink); font-variant-numeric:tabular-nums; white-space:nowrap;}
+.result-bars{display:grid; gap:19px;}
+.bar-head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:7px;}
+.bar-label{color:var(--c-ink); font-weight:700; font-size:.9rem;}
+.bar-value{color:var(--c-ink-dim); font-size:.8rem; white-space:nowrap; font-variant-numeric:tabular-nums;}
+.bar-track{height:13px; border-radius:999px; background:rgba(243,239,228,.09); overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.25);}
+.bar-fill{width:0; height:100%; border-radius:999px; transition:width .9s var(--ease); box-shadow:0 0 14px rgba(200,162,74,.18);}
+@media (prefers-reduced-motion:reduce){.result-donut,.bar-fill{transition:none;}}
+@media (max-width:520px){
+  .chart-card{padding:20px 16px;}
+  .result-donut{width:168px; height:168px;}
+  .bar-head{align-items:flex-start;}
+  .bar-label{font-size:.84rem;}
+  .bar-value{font-size:.75rem;}
+}
 
 .ai-card{padding:30px; margin:44px 0; border-color:rgba(200,162,74,0.35);}
 .ai-card .ai-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
@@ -365,6 +397,15 @@ section{padding:96px 0;}
 .responses-table td{color:var(--c-ink-dim);}
 .responses-table tr:last-child td{border-bottom:0;}
 .responses-table tbody tr:hover{background:rgba(200,162,74,.06);}
+
+.summary-table{min-width:660px;}
+.summary-table td:nth-child(2),.summary-table td:nth-child(3){font-variant-numeric:tabular-nums;}
+.summary-table .group-row td{color:var(--c-gold-bright); font-weight:700; background:rgba(200,162,74,.07);}
+.data-note{
+  margin:18px 0 0; padding:14px 16px; border-left:3px solid var(--c-gold);
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  background:rgba(200,162,74,.07); color:var(--c-ink-dim); font-size:.86rem;
+}
 
 .empty-state{text-align:center; padding:80px 20px; color:var(--c-ink-dim);}
 .empty-state .icon{font-size:2.6rem; margin-bottom:14px;}
@@ -446,10 +487,10 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
 
     <div class="wrap" style="margin-top:10px;">
       <div class="stat-strip">
-        <div class="stat-cell"><div class="num" id="hero-stat-total">0</div><div class="lbl">Барлық қатысушы</div></div>
-        <div class="stat-cell"><div class="num" id="hero-stat-auyl">0</div><div class="lbl">🏡 Ауыл тұрғыны</div></div>
-        <div class="stat-cell"><div class="num" id="hero-stat-oqushy">0</div><div class="lbl">🎓 Оқушы</div></div>
-        <div class="stat-cell"><div class="num" id="hero-stat-mugalim">0</div><div class="lbl">👩‍🏫 Мұғалім</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-total">143</div><div class="lbl">Барлық қатысушы</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-tarbagatai">103</div><div class="lbl">📍 Тарбағатайлық</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-used">75</div><div class="lbl">Тас майын қолданған</div></div>
+        <div class="stat-cell"><div class="num" id="hero-stat-not-used">68</div><div class="lbl">Қолданып көрмеген</div></div>
       </div>
     </div>
 
@@ -554,7 +595,7 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
     <div class="section-head">
       <span class="eyebrow">Зерттеуші дашборды</span>
       <h2>Сауалнама нәтижелері</h2>
-      <p>Нәтижелер <code>data/responses.json</code> файлындағы 50 демонстрациялық жауап бойынша көрсетіледі.</p>
+      <p>143 қатысушының сауалнама жауаптары бойынша жинақталған статистика.</p>
     </div>
 
     <div id="dash-empty" class="glass empty-state">
@@ -570,67 +611,55 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
     <div id="dash-body" style="display:none;">
       <div class="dash-stats">
         <div class="glass dash-stat"><div class="icon">📊</div><div class="num" id="stat-total">0</div><div class="lbl">Жалпы қатысушылар</div></div>
-        <div class="glass dash-stat"><div class="icon">🏡</div><div class="num" id="stat-auyl">0</div><div class="lbl">Ауыл тұрғындары</div></div>
-        <div class="glass dash-stat"><div class="icon">🎓</div><div class="num" id="stat-oqushy">0</div><div class="lbl">Оқушылар</div></div>
-        <div class="glass dash-stat"><div class="icon">👩‍🏫</div><div class="num" id="stat-mugalim">0</div><div class="lbl">Мұғалімдер</div></div>
+        <div class="glass dash-stat"><div class="icon">📍</div><div class="num" id="stat-tarbagatai">0</div><div class="lbl">Тарбағатайлықтар</div></div>
+        <div class="glass dash-stat"><div class="icon">✓</div><div class="num" id="stat-used">0</div><div class="lbl">Қолданып көргендер</div></div>
+        <div class="glass dash-stat"><div class="icon">—</div><div class="num" id="stat-not-used">0</div><div class="lbl">Қолданып көрмегендер</div></div>
       </div>
 
       <div class="chart-grid">
         <div class="glass chart-card">
-          <h4>Қатысушылардың топтары</h4>
-          <div class="chart-box"><canvas id="chart-pie"></canvas></div>
+          <h4>Қатысушылардың аймақ бойынша үлесі</h4>
+          <p class="chart-sub">Барлық 143 қатысушының өңір бойынша бөлінісі</p>
+          <div class="donut-layout">
+            <div class="result-donut" id="region-donut" role="img" aria-label="Қатысушылардың өңір бойынша дөңгелек диаграммасы">
+              <div class="donut-center"><span>143</span><small>адам</small></div>
+            </div>
+            <ul class="chart-legend" id="region-legend"></ul>
+          </div>
         </div>
         <div class="glass chart-card">
-          <h4>«Тастың майы туралы естідіңіз бе?»</h4>
-          <div class="chart-box"><canvas id="chart-heard"></canvas></div>
+          <h4>Тас майын қолдану тәжірибесі</h4>
+          <p class="chart-sub">Қолданып көрген және қолданып көрмеген қатысушылар</p>
+          <div class="result-bars" id="usage-bars"></div>
         </div>
-        <div class="glass chart-card">
-          <h4>Ақпаратты қайдан алған?</h4>
-          <div class="chart-box"><canvas id="chart-source"></canvas></div>
-        </div>
-        <div class="glass chart-card">
-          <h4>Тастың майын қолданған адамдар саны</h4>
-          <div class="chart-box"><canvas id="chart-used"></canvas></div>
-        </div>
-        <div class="glass chart-card">
-          <h4>Табиғи өнімдерді ғылыми зерттеу қажет пе?</h4>
-          <div class="chart-box"><canvas id="chart-research"></canvas></div>
-        </div>
-        <div class="glass chart-card">
-          <h4>Жас ерекшелігі бойынша</h4>
-          <div class="chart-box"><canvas id="chart-age"></canvas></div>
-        </div>
-        <div class="glass chart-card">
-          <h4>Демонстрациялық жауаптардың бағасы</h4>
-          <div class="chart-box"><canvas id="chart-quality"></canvas></div>
+        <div class="glass chart-card" style="grid-column:1/-1;">
+          <h4>Қолдану мақсаты бойынша</h4>
+          <p class="chart-sub">Тас майын қолданып көрген 75 адамның жауаптары</p>
+          <div class="result-bars" id="purpose-bars"></div>
+          <p class="chart-note">Пайыздар тас майын қолданып көрген 75 қатысушыға қатысты есептелді.</p>
         </div>
       </div>
 
       <div class="glass ai-card">
         <div class="ai-head">
           <span class="dot"></span>
-          <h3 style="margin:0;">🤖 ЗЕРТТЕУ AI ТАЛДАУЫ</h3>
-          <span class="ai-tag">DEMO AI ANALYSIS</span>
+          <h3 style="margin:0;">ЗЕРТТЕУ ҚОРЫТЫНДЫСЫ</h3>
+          <span class="ai-tag">ЖИНАҚТАЛҒАН ДЕРЕК</span>
         </div>
         <p id="ai-analysis-text">Талдау дайындалуда...</p>
       </div>
 
       <div class="glass responses-card">
-        <h3>Қатысушылардың жауаптары</h3>
+        <h3>Статистикалық кесте</h3>
         <div class="responses-table-wrap">
-          <table class="responses-table">
+          <table class="responses-table summary-table">
             <thead>
-              <tr><th>№</th><th>Топ</th><th>Жасы</th><th>Елді мекені</th><th>Естіген</th><th>Қолданған</th><th>Бағасы</th><th>Нәтиже</th></tr>
+              <tr><th>Көрсеткіш</th><th>Адам саны</th><th>Үлесі</th><th>Есептеу негізі</th></tr>
             </thead>
-            <tbody id="responses-table-body"></tbody>
+            <tbody id="summary-table-body"></tbody>
           </table>
         </div>
-      </div>
-
-      <div class="export-row">
-        <button class="btn btn-outline" onclick="exportJSON()">📥 Нәтижелерді JSON форматында жүктеу</button>
-        <button class="btn btn-outline" onclick="exportCSV()">📊 CSV жүктеу</button>
-        <button class="btn btn-primary" onclick="exportPDF()">📄 PDF есеп</button>
+        <p class="data-note">Ескерту: бұл деректер сауалнамаға қатысушылардың өз жауаптарына негізделген және емдік тиімділікті дәлелдемейді. Көрсетілген бес мақсат 45 адамды қамтиды; қалған 30 жауап «басқа немесе көрсетілмеген» санатына енгізілді.</p>
       </div>
     </div>
   </section>
@@ -648,7 +677,6 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
   <div class="f-quote">«Табиғат құпиясын ғылым арқылы тану»</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 /* =========================================================
@@ -1091,53 +1119,42 @@ function tally(arr, key) {
   return m;
 }
 
+const RESEARCH_STATS = {
+  total: 143,
+  tarbagatai: 103,
+  used: 75,
+  notUsed: 68,
+  purposes: [
+    { label: 'Қант диабетіне қолданған', chartLabel: 'Қант диабеті', value: 1 },
+    { label: 'Асқазан ауырғанда қолданған', chartLabel: 'Асқазан ауыруы', value: 25 },
+    { label: 'Теміреткіге және күйгенге қолданған', chartLabel: 'Теміреткі, күйік', value: 8 },
+    { label: 'Бронх пен жөтелге қолданған', chartLabel: 'Бронх, жөтел', value: 10 },
+    { label: 'Шаш жууға қолданған', chartLabel: 'Шаш жуу', value: 1 },
+    { label: 'Басқа немесе көрсетілмеген', chartLabel: 'Басқа / көрсетілмеген', value: 30 },
+  ],
+};
+
+function formatPercent(value, base) {
+  return `${((value / base) * 100).toFixed(1).replace('.', ',')}%`;
+}
+
 async function renderDashboard() {
   const empty = document.getElementById('dash-empty');
   const body = document.getElementById('dash-body');
-  let data;
-  try {
-    data = await loadResponses();
-  } catch (error) {
-    console.error(error);
-    empty.style.display = 'block';
-    body.style.display = 'none';
-    empty.querySelector('h3').textContent = 'Деректерді жүктеу мүмкін болмады';
-    empty.querySelector('p').textContent = 'Браузер деректеріне қолжетімділікті тексеріп, бетті қайта жүктеңіз.';
-    return;
-  }
-  if (!data.length) {
-    empty.style.display = 'block';
-    body.style.display = 'none';
-    empty.querySelector('h3').textContent = 'Әзірге дерек жоқ';
-    empty.querySelector('p').textContent = 'Нәтижелерді көру үшін алдымен сауалнамаға қатысыңыз, немесе көрсету мақсатында демо деректер жасаңыз.';
-    return;
-  }
   empty.style.display = 'none';
   body.style.display = 'block';
 
-  const total = data.length;
-  const nAuyl = count(data, r => r.q_type === 'auyl');
-  const nOqushy = count(data, r => r.q_type === 'oqushy');
-  const nMugalim = count(data, r => r.q_type === 'mugalim');
+  document.getElementById('stat-total').textContent = RESEARCH_STATS.total;
+  document.getElementById('stat-tarbagatai').textContent = RESEARCH_STATS.tarbagatai;
+  document.getElementById('stat-used').textContent = RESEARCH_STATS.used;
+  document.getElementById('stat-not-used').textContent = RESEARCH_STATS.notUsed;
 
-  document.getElementById('stat-total').textContent = total;
-  document.getElementById('stat-auyl').textContent = nAuyl;
-  document.getElementById('stat-oqushy').textContent = nOqushy;
-  document.getElementById('stat-mugalim').textContent = nMugalim;
-
-  renderAIAnalysis(data, { total, nAuyl, nOqushy, nMugalim });
-  renderResponseTable(data);
-  if (typeof Chart === 'undefined') {
-    toast('Диаграмма кітапханасы жүктелмеді, жауаптар кестеде көрсетілді', '⚠️');
-    return;
-  }
-  drawGroupPie(data, nAuyl, nOqushy, nMugalim);
-  drawHeardBar(data);
-  drawSourceDoughnut(data);
-  drawUsedBar(data);
-  drawResearchNeedBar(data);
-  drawAgeChart(data);
-  drawQualityChart(data);
+  renderSummaryTable();
+  document.getElementById('ai-analysis-text').textContent =
+    `Сауалнамаға ${RESEARCH_STATS.total} адам қатысты. Оның ${RESEARCH_STATS.tarbagatai}-і (${formatPercent(RESEARCH_STATS.tarbagatai, RESEARCH_STATS.total)}) — Тарбағатай өңірінің тұрғындары. ` +
+    `Тас майын ${RESEARCH_STATS.used} адам (${formatPercent(RESEARCH_STATS.used, RESEARCH_STATS.total)}) қолданып көрген, ал ${RESEARCH_STATS.notUsed} адам (${formatPercent(RESEARCH_STATS.notUsed, RESEARCH_STATS.total)}) қолданбаған. ` +
+    `Қолданғандар арасында ең жиі көрсетілген мақсат — асқазан ауырғанда қолдану: 25 адам (${formatPercent(25, RESEARCH_STATS.used)}).`;
+  renderResultDiagrams();
 }
 
 function escHtml(value) {
@@ -1149,24 +1166,65 @@ function escHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function renderResponseTable(data) {
-  const tbody = document.getElementById('responses-table-body');
-  tbody.innerHTML = data.map((record, index) => `
-    <tr>
-      <td>${index + 1}</td>
-      <td>${escHtml(GROUP_LABELS[record.q_type] || record.q_type)}</td>
-      <td>${escHtml(record.age)}</td>
-      <td>${escHtml(record.location)}</td>
-      <td>${escHtml(record.q1_heard)}</td>
-      <td>${escHtml(record.q7_used)}</td>
-      <td>${record.q9_experience ? `${escHtml(record.q9_experience)}/5` : '—'}</td>
-      <td>${escHtml(record.result_label || 'Нақты жауап')}</td>
-    </tr>`).join('');
+function renderSummaryTable() {
+  const tbody = document.getElementById('summary-table-body');
+  const rows = [
+    ['Барлық қатысушы', RESEARCH_STATS.total, '100%', 'Барлық қатысушы'],
+    ['Тарбағатайлық қатысушылар', RESEARCH_STATS.tarbagatai, formatPercent(RESEARCH_STATS.tarbagatai, RESEARCH_STATS.total), '143 қатысушыдан'],
+    ['Басқа өңірден', RESEARCH_STATS.total - RESEARCH_STATS.tarbagatai, formatPercent(RESEARCH_STATS.total - RESEARCH_STATS.tarbagatai, RESEARCH_STATS.total), '143 қатысушыдан'],
+    ['Тас майын қолданып көргендер', RESEARCH_STATS.used, formatPercent(RESEARCH_STATS.used, RESEARCH_STATS.total), '143 қатысушыдан'],
+    ['Қолданып көрмегендер', RESEARCH_STATS.notUsed, formatPercent(RESEARCH_STATS.notUsed, RESEARCH_STATS.total), '143 қатысушыдан'],
+  ];
+
+  tbody.innerHTML = rows.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td><td>${row[3]}</td></tr>`).join('') +
+    '<tr class="group-row"><td colspan="4">Қолдану мақсаты</td></tr>' +
+    RESEARCH_STATS.purposes.map(item => `<tr><td>${item.label}</td><td>${item.value}</td><td>${formatPercent(item.value, RESEARCH_STATS.used)}</td><td>Қолданған 75 адамнан</td></tr>`).join('');
 }
 
 const CHART_PALETTE = ['#c8a24a', '#e0bd6a', '#8a5a34', '#7fae7a', '#5b6779', '#cfc9ba'];
 const CHART_TEXT = '#f3efe4';
 const CHART_GRID = 'rgba(243,239,228,0.08)';
+
+function diagramBar(item, base, color) {
+  const percent = (item.value / base) * 100;
+  return `<div class="bar-row">
+    <div class="bar-head">
+      <span class="bar-label">${item.label}</span>
+      <span class="bar-value">${item.value} адам · ${formatPercent(item.value, base)}</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" data-width="${percent}" style="background:${color}"></div></div>
+  </div>`;
+}
+
+function renderResultDiagrams() {
+  const regionGroups = [
+    { label: 'Тарбағатайлықтар', value: RESEARCH_STATS.tarbagatai, color: CHART_PALETTE[0] },
+    { label: 'Басқа өңірден', value: RESEARCH_STATS.total - RESEARCH_STATS.tarbagatai, color: CHART_PALETTE[4] },
+  ];
+  let angle = 0;
+  const stops = regionGroups.map(group => {
+    const start = angle;
+    angle += (group.value / RESEARCH_STATS.total) * 360;
+    return `${group.color} ${start}deg ${angle}deg`;
+  });
+  const donut = document.getElementById('region-donut');
+  donut.style.background = `conic-gradient(${stops.join(',')})`;
+  donut.setAttribute('aria-label', regionGroups.map(group => `${group.label}: ${group.value} адам, ${formatPercent(group.value, RESEARCH_STATS.total)}`).join('; '));
+  document.getElementById('region-legend').innerHTML = regionGroups.map(group => `
+    <li><span class="legend-dot" style="background:${group.color}"></span><span>${group.label}</span><b>${group.value} · ${formatPercent(group.value, RESEARCH_STATS.total)}</b></li>
+  `).join('');
+
+  const usage = [
+    { label: '✓ Қолданып көрген', value: RESEARCH_STATS.used },
+    { label: '— Қолданып көрмеген', value: RESEARCH_STATS.notUsed },
+  ];
+  document.getElementById('usage-bars').innerHTML = usage.map((item, index) => diagramBar(item, RESEARCH_STATS.total, [CHART_PALETTE[3], CHART_PALETTE[4]][index])).join('');
+  document.getElementById('purpose-bars').innerHTML = RESEARCH_STATS.purposes.map((item, index) => diagramBar(item, RESEARCH_STATS.used, CHART_PALETTE[index % CHART_PALETTE.length])).join('');
+
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.bar-fill').forEach(fill => { fill.style.width = `${fill.dataset.width}%`; });
+  });
+}
 
 function destroyChart(id) {
   if (state.charts[id]) { state.charts[id].destroy(); delete state.charts[id]; }
@@ -1191,6 +1249,58 @@ function baseOptions(extra) {
       }
     }
   }, extra || {});
+}
+
+function drawRegionChart() {
+  destroyChart('region');
+  state.charts.region = new Chart(document.getElementById('chart-region'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Тарбағатайлықтар', 'Басқа өңірден'],
+      datasets: [{
+        data: [RESEARCH_STATS.tarbagatai, RESEARCH_STATS.total - RESEARCH_STATS.tarbagatai],
+        backgroundColor: [CHART_PALETTE[0], CHART_PALETTE[4]], borderColor: '#142235', borderWidth: 2,
+      }],
+    },
+    options: baseOptions(),
+  });
+}
+
+function drawUsageChart() {
+  destroyChart('usage');
+  state.charts.usage = new Chart(document.getElementById('chart-usage'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Қолданып көрген', 'Қолданып көрмеген'],
+      datasets: [{
+        data: [RESEARCH_STATS.used, RESEARCH_STATS.notUsed],
+        backgroundColor: [CHART_PALETTE[3], CHART_PALETTE[4]], borderColor: '#142235', borderWidth: 2,
+      }],
+    },
+    options: baseOptions(),
+  });
+}
+
+function drawPurposeChart() {
+  destroyChart('purpose');
+  state.charts.purpose = new Chart(document.getElementById('chart-purpose'), {
+    type: 'bar',
+    data: {
+      labels: RESEARCH_STATS.purposes.map(item => item.chartLabel),
+      datasets: [{
+        label: 'Адам саны', data: RESEARCH_STATS.purposes.map(item => item.value),
+        backgroundColor: CHART_PALETTE, borderRadius: 8,
+      }],
+    },
+    options: baseOptions({
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { beginAtZero: true, ticks: { color: CHART_TEXT, precision: 0 }, grid: { color: CHART_GRID } },
+        y: { ticks: { color: CHART_TEXT }, grid: { display: false } },
+      },
+    }),
+  });
 }
 
 function drawGroupPie(data, nAuyl, nOqushy, nMugalim) {
@@ -1600,16 +1710,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('btn-next').addEventListener('click', nextStep);
   document.getElementById('btn-prev').addEventListener('click', prevStep);
 
-  // Hero stat strip (based on already-saved responses, if any)
-  try {
-    const data = await loadResponses();
-    document.getElementById('hero-stat-total').textContent = data.length;
-    document.getElementById('hero-stat-auyl').textContent = count(data, r => r.q_type === 'auyl');
-    document.getElementById('hero-stat-oqushy').textContent = count(data, r => r.q_type === 'oqushy');
-    document.getElementById('hero-stat-mugalim').textContent = count(data, r => r.q_type === 'mugalim');
-  } catch (error) {
-    console.error('Не удалось загрузить статистику:', error);
-  }
+  // Басты беттегі жолақта зерттеудің жинақталған, тексерілген деректері көрсетіледі.
+  document.getElementById('hero-stat-total').textContent = RESEARCH_STATS.total;
+  document.getElementById('hero-stat-tarbagatai').textContent = RESEARCH_STATS.tarbagatai;
+  document.getElementById('hero-stat-used').textContent = RESEARCH_STATS.used;
+  document.getElementById('hero-stat-not-used').textContent = RESEARCH_STATS.notUsed;
 
   switchView('home');
 });
