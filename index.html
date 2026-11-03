@@ -10,28 +10,28 @@
 <style>
 /* =========================================================
    ЖАРТАСТАҒЫ ЖАСЫРЫН ШИПА — стиль кестесі
-   Токендер: терең тау-түн көгі, тас сұры, ежелгі алтын
+   Токендер: презентациядағы крем, қоңыр және охра
    ========================================================= */
 
 :root{
-  --c-bg-0: #0c1723;
-  --c-bg-1: #142235;
-  --c-bg-2: #1c2c42;
-  --c-stone: #5b6779;
-  --c-stone-light: #8b96a6;
-  --c-gold: #c8a24a;
-  --c-gold-bright: #e0bd6a;
-  --c-bronze: #8a5a34;
-  --c-ink: #f3efe4;
-  --c-ink-dim: #cfc9ba;
-  --c-good: #7fae7a;
-  --c-line: rgba(243,239,228,0.12);
-  --glass-bg: rgba(28,44,66,0.55);
-  --glass-border: rgba(200,162,74,0.22);
+  --c-bg-0: #fbf6ee;
+  --c-bg-1: #fffdf9;
+  --c-bg-2: #f3e8d8;
+  --c-stone: #7a6654;
+  --c-stone-light: #9a826b;
+  --c-gold: #a65c17;
+  --c-gold-bright: #925018;
+  --c-bronze: #c27a2c;
+  --c-ink: #2a221c;
+  --c-ink-dim: #5a4636;
+  --c-good: #547653;
+  --c-line: rgba(42,34,28,0.12);
+  --glass-bg: rgba(255,253,249,0.92);
+  --glass-border: rgba(166,92,23,0.22);
   --radius-lg: 22px;
   --radius-md: 14px;
   --radius-sm: 8px;
-  --shadow-soft: 0 20px 60px rgba(4,8,14,0.55);
+  --shadow-soft: 0 20px 60px rgba(90,70,54,0.10);
   --font-display: 'Spectral', 'PT Serif', Georgia, serif;
   --font-body: 'Manrope', 'Segoe UI', sans-serif;
   --ease: cubic-bezier(.22,.9,.32,1);
@@ -118,7 +118,7 @@ img{max-width:100%;display:block;}
   background:none; border:none; color:var(--c-ink-dim); cursor:pointer;
   padding:9px 16px; border-radius:999px; font-size:.92rem; transition:all .25s var(--ease);
 }
-.nav-links button:hover, .nav-links button.active{color:var(--c-ink); background:rgba(200,162,74,0.14);}
+.nav-links button:hover, .nav-links button.active{color:var(--c-ink); background:rgba(166,92,23,0.14);}
 .nav-toggle{display:none; background:none; border:1px solid var(--c-line); color:var(--c-ink); border-radius:10px; padding:8px 10px;}
 
 @media (max-width:820px){
@@ -164,17 +164,17 @@ section{padding:96px 0;}
 .btn:active{transform:scale(.97);}
 .btn-primary{
   background:linear-gradient(135deg, var(--c-gold-bright), var(--c-bronze));
-  color:#1c1305; box-shadow:0 12px 30px rgba(200,162,74,0.28);
+  color:#1c1305; box-shadow:0 12px 30px rgba(166,92,23,0.28);
 }
-.btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 38px rgba(200,162,74,0.4);}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 38px rgba(166,92,23,0.4);}
 .btn-ghost{
-  background:rgba(243,239,228,0.05); color:var(--c-ink); border-color:var(--c-line);
+  background:rgba(42,34,28,0.05); color:var(--c-ink); border-color:var(--c-line);
 }
-.btn-ghost:hover{background:rgba(243,239,228,0.1); border-color:var(--c-gold);}
+.btn-ghost:hover{background:rgba(42,34,28,0.1); border-color:var(--c-gold);}
 .btn-outline{
   background:transparent; border-color:var(--c-gold); color:var(--c-gold-bright);
 }
-.btn-outline:hover{background:rgba(200,162,74,0.1);}
+.btn-outline:hover{background:rgba(166,92,23,0.1);}
 .btn-sm{padding:9px 18px; font-size:.86rem;}
 .btn[disabled]{opacity:.4; cursor:not-allowed; pointer-events:none;}
 .ripple{
@@ -247,15 +247,15 @@ section{padding:96px 0;}
 .survey-close{
   position:absolute; top:14px; right:14px; z-index:3;
   width:38px; height:38px; padding:0; border-radius:50%;
-  border:1px solid var(--c-line); background:rgba(12,23,35,.72);
+  border:1px solid var(--c-line); background:rgba(255,253,249,.95);
   color:var(--c-ink-dim); font-size:1.55rem; line-height:1;
   cursor:pointer; transition:all .2s var(--ease);
 }
-.survey-close:hover{color:var(--c-ink); border-color:var(--c-gold); background:rgba(200,162,74,.12);}
+.survey-close:hover{color:var(--c-ink); border-color:var(--c-gold); background:rgba(166,92,23,.12);}
 .survey-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:14px;}
 .survey-counter{font-size:.85rem; color:var(--c-ink-dim); white-space:nowrap;}
 .progress-track{
-  flex:1; height:6px; border-radius:999px; background:rgba(243,239,228,0.1); overflow:hidden;
+  flex:1; height:6px; border-radius:999px; background:rgba(42,34,28,0.1); overflow:hidden;
 }
 .progress-fill{
   height:100%; border-radius:999px; width:0%;
@@ -272,13 +272,13 @@ section{padding:96px 0;}
 .opt{
   display:flex; align-items:center; gap:12px; text-align:left;
   padding:15px 18px; border-radius:var(--radius-md); border:1px solid var(--c-line);
-  background:rgba(243,239,228,0.03); cursor:pointer; transition:all .25s var(--ease);
+  background:rgba(42,34,28,0.03); cursor:pointer; transition:all .25s var(--ease);
   position:relative; overflow:hidden;
 }
-.opt:hover{border-color:var(--c-gold); background:rgba(200,162,74,0.07); transform:translateX(3px);}
+.opt:hover{border-color:var(--c-gold); background:rgba(166,92,23,0.07); transform:translateX(3px);}
 .opt.selected{
-  border-color:var(--c-gold); background:rgba(200,162,74,0.16);
-  box-shadow:0 0 0 1px var(--c-gold), 0 10px 26px rgba(200,162,74,0.18);
+  border-color:var(--c-gold); background:rgba(166,92,23,0.16);
+  box-shadow:0 0 0 1px var(--c-gold), 0 10px 26px rgba(166,92,23,0.18);
 }
 .opt .mark{
   width:20px; height:20px; border-radius:50%; border:2px solid var(--c-stone-light); flex:none;
@@ -292,11 +292,11 @@ section{padding:96px 0;}
 
 .field-text, .field-textarea, .field-select{
   width:100%; padding:14px 16px; border-radius:var(--radius-md); border:1px solid var(--c-line);
-  background:rgba(243,239,228,0.04); color:var(--c-ink); font-family:var(--font-body); font-size:1rem;
+  background:rgba(42,34,28,0.04); color:var(--c-ink); font-family:var(--font-body); font-size:1rem;
   transition:border-color .2s var(--ease);
 }
 .field-text:focus, .field-textarea:focus, .field-select:focus{
-  outline:none; border-color:var(--c-gold); background:rgba(243,239,228,0.07);
+  outline:none; border-color:var(--c-gold); background:rgba(42,34,28,0.07);
 }
 .field-textarea{min-height:110px; resize:vertical;}
 
@@ -304,21 +304,21 @@ section{padding:96px 0;}
 @media (max-width:700px){.type-grid{grid-template-columns:1fr;}}
 .type-card{
   padding:30px 20px; text-align:center; border-radius:var(--radius-lg); cursor:pointer;
-  border:1px solid var(--c-line); background:rgba(243,239,228,0.03); transition:all .3s var(--ease);
+  border:1px solid var(--c-line); background:rgba(42,34,28,0.03); transition:all .3s var(--ease);
   position:relative; overflow:hidden;
 }
 .type-card .icon{font-size:2.4rem; margin-bottom:12px; display:block;}
 .type-card .name{font-family:var(--font-display); font-size:1.1rem;}
 .type-card:hover{transform:translateY(-4px); border-color:var(--c-gold);}
 .type-card.selected{
-  border-color:var(--c-gold-bright); background:rgba(200,162,74,0.15);
-  box-shadow:0 0 0 1px var(--c-gold-bright), 0 18px 40px rgba(200,162,74,0.22);
+  border-color:var(--c-gold-bright); background:rgba(166,92,23,0.15);
+  box-shadow:0 0 0 1px var(--c-gold-bright), 0 18px 40px rgba(166,92,23,0.22);
 }
 
 .rating{display:flex; gap:10px;}
 .rating button{
   background:none; border:none; cursor:pointer; font-size:2rem; line-height:1;
-  color:rgba(243,239,228,0.25); transition:all .2s var(--ease); padding:0;
+  color:rgba(42,34,28,0.25); transition:all .2s var(--ease); padding:0;
 }
 .rating button.active, .rating button:hover{color:var(--c-gold-bright); transform:scale(1.12);}
 
@@ -370,8 +370,8 @@ section{padding:96px 0;}
 .bar-head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:7px;}
 .bar-label{color:var(--c-ink); font-weight:700; font-size:.9rem;}
 .bar-value{color:var(--c-ink-dim); font-size:.8rem; white-space:nowrap; font-variant-numeric:tabular-nums;}
-.bar-track{height:13px; border-radius:999px; background:rgba(243,239,228,.09); overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.25);}
-.bar-fill{width:0; height:100%; border-radius:999px; transition:width .9s var(--ease); box-shadow:0 0 14px rgba(200,162,74,.18);}
+.bar-track{height:13px; border-radius:999px; background:rgba(42,34,28,.09); overflow:hidden; box-shadow:inset 0 1px 2px rgba(0,0,0,.25);}
+.bar-fill{width:0; height:100%; border-radius:999px; transition:width .9s var(--ease); box-shadow:0 0 14px rgba(166,92,23,.18);}
 @media (prefers-reduced-motion:reduce){.result-donut,.bar-fill{transition:none;}}
 @media (max-width:520px){
   .chart-card{padding:20px 16px;}
@@ -381,7 +381,7 @@ section{padding:96px 0;}
   .bar-value{font-size:.75rem;}
 }
 
-.ai-card{padding:30px; margin:44px 0; border-color:rgba(200,162,74,0.35);}
+.ai-card{padding:30px; margin:44px 0; border-color:rgba(166,92,23,0.35);}
 .ai-card .ai-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
 .ai-card .ai-head .dot{width:9px; height:9px; border-radius:50%; background:var(--c-good); box-shadow:0 0 0 4px rgba(127,174,122,0.2);}
 .ai-card p{color:var(--c-ink-dim);}
@@ -393,18 +393,18 @@ section{padding:96px 0;}
 .responses-table-wrap{overflow-x:auto; border:1px solid var(--c-line); border-radius:var(--radius-md);}
 .responses-table{width:100%; border-collapse:collapse; min-width:880px; font-size:.82rem;}
 .responses-table th,.responses-table td{padding:11px 12px; text-align:left; border-bottom:1px solid var(--c-line); white-space:nowrap;}
-.responses-table th{position:sticky; top:0; color:var(--c-gold-bright); background:#17263a; font-weight:700;}
+.responses-table th{position:sticky; top:0; color:var(--c-gold-bright); background:#f3e8d8; font-weight:700;}
 .responses-table td{color:var(--c-ink-dim);}
 .responses-table tr:last-child td{border-bottom:0;}
-.responses-table tbody tr:hover{background:rgba(200,162,74,.06);}
+.responses-table tbody tr:hover{background:rgba(166,92,23,.06);}
 
 .summary-table{min-width:660px;}
 .summary-table td:nth-child(2),.summary-table td:nth-child(3){font-variant-numeric:tabular-nums;}
-.summary-table .group-row td{color:var(--c-gold-bright); font-weight:700; background:rgba(200,162,74,.07);}
+.summary-table .group-row td{color:var(--c-gold-bright); font-weight:700; background:rgba(166,92,23,.07);}
 .data-note{
   margin:18px 0 0; padding:14px 16px; border-left:3px solid var(--c-gold);
   border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-  background:rgba(200,162,74,.07); color:var(--c-ink-dim); font-size:.86rem;
+  background:rgba(166,92,23,.07); color:var(--c-ink-dim); font-size:.86rem;
 }
 
 .empty-state{text-align:center; padding:80px 20px; color:var(--c-ink-dim);}
@@ -432,6 +432,36 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
 
 :focus-visible{outline:2px solid var(--c-gold-bright); outline-offset:3px;}
 
+
+/* Presentation palette and research page */
+.bg-vignette{background:radial-gradient(ellipse at 50% 15%,transparent 30%,rgba(234,223,206,.28) 100%);}
+.bg-mountains{opacity:.32;}
+.bg-grain{opacity:.025;}
+.nav{background:rgba(251,246,238,.96);border-bottom:1px solid var(--c-line);}
+.hero h1{text-shadow:none;}
+.btn-primary{background:var(--c-gold);color:#fffdf9;}
+.opt .mark svg{color:#fffdf9;}
+.responses-table th{background:var(--c-bg-2);}
+.research-wrap{max-width:1280px;padding-top:125px;padding-bottom:72px;}
+.research-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px;}
+.research-heading h1{font-size:clamp(2rem,4vw,3.3rem);line-height:1.15;}
+.research-heading p{color:var(--c-ink-dim);margin:0;}
+.research-jump{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px;}
+.research-jump a{padding:7px 14px;border:1px solid var(--c-line);border-radius:999px;text-decoration:none;font-size:.85rem;background:var(--c-bg-1);}
+.research-jump a:hover{border-color:var(--c-gold);color:var(--c-gold);}
+.research-slide{margin:0 0 36px;scroll-margin-top:100px;border:1px solid #eadfce;border-radius:14px;overflow:hidden;background:#fbf6ee;box-shadow:0 8px 32px rgba(90,70,54,.06);}
+.research-slide>img{width:100%;height:auto;}
+.research-slide details{padding:12px 20px;border-top:1px solid #eadfce;background:#fffdf9;}
+.research-slide summary{cursor:pointer;color:var(--c-ink-dim);font-size:.85rem;}
+.slide-transcript{max-width:800px;padding:16px 0;}
+.slide-transcript p{margin:0 0 12px;}
+.research-video-heading{padding:28px 32px 0;}
+.research-video-heading h2{font-size:clamp(1.5rem,3vw,2rem);}
+.research-video{display:block;width:100%;height:min(75vh,720px);background:#2a221c;object-fit:contain;margin-top:20px;}
+.research-video-caption{padding:16px 32px;margin:0;color:var(--c-ink-dim);font-size:.9rem;}
+@media(max-width:1000px){.nav{padding-left:18px;padding-right:18px;}.nav-links button{padding:9px 10px;font-size:.85rem;}}
+@media(max-width:600px){.research-heading{align-items:flex-start;flex-direction:column;}.research-wrap{padding-top:105px;}.research-slide{margin-bottom:22px;border-radius:8px;}.research-video-heading{padding:20px 18px 0;}.research-video-caption{padding:14px 18px;}}
+
 </style>
 </head>
 <body>
@@ -440,13 +470,13 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
 <canvas id="bg-canvas"></canvas>
 <div class="bg-mountains" aria-hidden="true">
   <svg data-parallax="0.04" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:62vh;">
-    <polygon points="0,500 0,300 180,180 340,280 520,140 700,260 900,120 1080,270 1260,160 1440,290 1600,220 1600,500" fill="#16233a"></polygon>
+    <polygon points="0,500 0,300 180,180 340,280 520,140 700,260 900,120 1080,270 1260,160 1440,290 1600,220 1600,500" fill="#eadfce"></polygon>
   </svg>
   <svg data-parallax="0.09" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:48vh;">
-    <polygon points="0,500 0,360 220,220 400,340 600,200 820,350 1040,180 1240,340 1440,240 1600,340 1600,500" fill="#1c2c42"></polygon>
+    <polygon points="0,500 0,360 220,220 400,340 600,200 820,350 1040,180 1240,340 1440,240 1600,340 1600,500" fill="#f3e8d8"></polygon>
   </svg>
   <svg data-parallax="0.16" viewBox="0 0 1600 500" preserveAspectRatio="none" style="height:34vh;">
-    <polygon points="0,500 0,420 260,300 480,410 720,280 960,420 1200,300 1440,410 1600,360 1600,500" fill="#233350"></polygon>
+    <polygon points="0,500 0,420 260,300 480,410 720,280 960,420 1200,300 1440,410 1600,360 1600,500" fill="#d9c7ae"></polygon>
   </svg>
 </div>
 <div class="bg-vignette" aria-hidden="true"></div>
@@ -466,6 +496,7 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
   </button>
   <ul class="nav-links" id="nav-links">
     <li><button data-view="home" class="active">Басты бет</button></li>
+    <li><button data-view="research">Зерттеу</button></li>
     <li><button data-view="about">Жоба туралы</button></li>
     <li><button data-view="survey">Сауалнама</button></li>
     <li><button data-view="results">Нәтижелер</button></li>
@@ -501,6 +532,210 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
   </section>
 </div>
 
+<div class="view" id="view-research">
+  <section class="wrap research-wrap" aria-labelledby="research-title">
+    <div class="research-heading"><div><span class="eyebrow">Ғылыми-зерттеу жобасы</span><h1 id="research-title">Жартастағы жасырын шипа</h1><p>Табиғи тас майын (мумиені) тазарту, құрамы мен қолданылуын зерттеу</p></div><a class="btn btn-outline btn-sm" href="#research-slide-9">Бейнежазбаны көру ↓</a></div>
+    <nav class="research-jump" aria-label="Зерттеу бөлімдері">
+<a href="#research-slide-1">01 · Жартастағы жасырын шипа</a>
+<a href="#research-slide-2">02 · Өзектілігі, мақсаты және теория</a>
+<a href="#research-slide-3">03 · Шикізат жинау</a>
+<a href="#research-slide-4">04 · Тазарту әдісі</a>
+<a href="#research-slide-5">05 · Халық тәжірибесі және бақылау</a>
+<a href="#research-slide-6">06 · Дәріхана таблеткасының құрамы</a>
+<a href="#research-slide-7">07 · Тәжірибе және салыстыру</a>
+<a href="#research-slide-8">08 · Сауалнама нәтижелері</a>
+<a href="#research-slide-9">09 · Зерттеу бейнежазбасы</a>
+<a href="#research-slide-10">10 · Қорытынды</a>
+</nav>
+<article class="research-slide" id="research-slide-1" aria-label="1. Жартастағы жасырын шипа">
+<img src="assets/research/slide-01.webp" alt="1-слайд. Жартастағы жасырын шипа. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>01 · Жартастағы жасырын шипа — слайд мәтіні</summary><div class="slide-transcript">
+<p>СЕКЦИЯСЫ: БИОЛОГИЯ ЖӘНЕ ӨМІР ТУРАЛЫ ҒЫЛЫМДАР. БИОХИМИЯ</p>
+<p>Жартастағы</p>
+<p>жасырын шипа</p>
+<p>Табиғи тас майын (мумиені) тазарту,</p>
+<p>құрамы мен қолданылуын зерттеу</p>
+<p>Қайырбеков Жалын, 11-сынып оқушысы</p>
+<p>Ғылыми жетекшісі: Қызырбекова Айтолқын Болатбекқызы</p>
+<p>«Асусай» мектеп-балабақша кешені» КММ</p>
+<p>Көкбай жартастарында, шикізат жинау кезінде</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-2" aria-label="2. Өзектілігі, мақсаты және теория">
+<img src="assets/research/slide-02.webp" alt="2-слайд. Өзектілігі, мақсаты және теория. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>02 · Өзектілігі, мақсаты және теория — слайд мәтіні</summary><div class="slide-transcript">
+<p>ӨЗЕКТІЛІГІ, МАҚСАТЫ ЖӘНЕ ТЕОРИЯ</p>
+<p>Тас майын көп адам біледі, бірақ дұрыс тазартуды біле бермейді</p>
+<p>Мақсаты</p>
+<p>Көкбай жартастарынан алынған тас майын тазарту әдісін анықтау, құрамы мен қолданылуын зерттеу және дәріханалық мумиемен салыстыру.</p>
+<p>Болжам</p>
+<p>Бірнеше рет сүзіп тазартылған табиғи тас майы қоспасыз таза өнімге айналады және таблеткаға қарағанда кеңірек қолданылады.</p>
+<p>Тас майы — жартастың күн түспейтін қуыстарында өсімдік қалдықтарының ыдырауынан түзілетін табиғи зат. Белсенді бөлігі суда ериді, ал құм мен тас ерімейді.</p>
+<p>Фульвоқышқыл, гумин заттары</p>
+<p>Негізгі белсенді бөлігі, антиоксидант</p>
+<p>Аминқышқылдары</p>
+<p>Тіндердің қалпына келуіне қажет</p>
+<p>Микроэлементтер: K, Ca, Mg, Fe, Zn</p>
+<p>Сүйек пен қан түзуге қатысады</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-3" aria-label="3. Шикізат жинау">
+<img src="assets/research/slide-03.webp" alt="3-слайд. Шикізат жинау. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>03 · Шикізат жинау — слайд мәтіні</summary><div class="slide-transcript">
+<p>ЗЕРТТЕУ · ШИКІЗАТ ЖИНАУ</p>
+<p>Шикізатты Көкбай жартастарынан өзіміз жинадық</p>
+<p>Жартас қуысынан қашап алу</p>
+<p>Шикізат: құм, тас аралас қара-қоңыр масса</p>
+<p>ҚАЙДА</p>
+<p>Жартастың күн мен жауыннан қорғалған қуыстарында</p>
+<p>КІММЕН</p>
+<p>Ғылыми жетекші және тәжірибелі Алейхан атамен бірге</p>
+<p>ҚАУІПСІЗДІК</p>
+<p>Жартасқа тек үлкендердің қасында шықтық</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-4" aria-label="4. Тазарту әдісі">
+<img src="assets/research/slide-04.webp" alt="4-слайд. Тазарту әдісі. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>04 · Тазарту әдісі — слайд мәтіні</summary><div class="slide-transcript">
+<p>ТАЗАРТУ ӘДІСІ</p>
+<p>Таза тас майын бірнеше рет сүзу арқылы аламыз</p>
+<p>1</p>
+<p>Еріту</p>
+<p>Шикізатқа жылы су құйып ерітеміз</p>
+<p>2</p>
+<p>Тұндыру</p>
+<p>Құм мен тас ыдыстың түбіне шөгеді</p>
+<p>3</p>
+<p>Бірнеше рет сүзу</p>
+<p>Дәкеден қайта-қайта сүзіп, қоспадан айырамыз</p>
+<p>4</p>
+<p>Буландыру</p>
+<p>Баяу отта суы буланғанша қайнатамыз</p>
+<p>5</p>
+<p>Таза тас майы</p>
+<p>Түбінде қара-қоңыр қою масса қалады</p>
+<p>Неге жұмыс істейді: белсенді заттар суда ериді, ал құм мен тас ерімейді. Сүзу неғұрлым көп болса, тас майы соғұрлым таза болады.</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-5" aria-label="5. Халық тәжірибесі және бақылау">
+<img src="assets/research/slide-05.webp" alt="5-слайд. Халық тәжірибесі және бақылау. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>05 · Халық тәжірибесі және бақылау — слайд мәтіні</summary><div class="slide-transcript">
+<p>ХАЛЫҚ ТӘЖІРИБЕСІ ЖӘНЕ БАҚЫЛАУ</p>
+<p>Тас майы ішке де, сыртқа да қолданылады</p>
+<p>СҰХБАТ · ІШКЕ</p>
+<p>«Тастың майы асқазанымдағы жараны бітірді»</p>
+<p>— Алейхан ата. Тас майын таңертең аш қарынға жылы суға ерітіп ішеді.</p>
+<p>БАҚЫЛАУ · СЫРТҚА</p>
+<p>Күйік: жаққанға дейін және жазылғаннан кейін</p>
+<p>Сынған аяқ: таңылған → тас майы жағылған → жазылған</p>
+<p>Ұлжан апай-тас майымен шашын жуады</p>
+<p>Анам-асқазанына ішеді </p>
+<p>Ақай аға –қант диабетіне қолданған</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-6" aria-label="6. Дәріхана таблеткасының құрамы">
+<img src="assets/research/slide-06.webp" alt="6-слайд. Дәріхана таблеткасының құрамы. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>06 · Дәріхана таблеткасының құрамы — слайд мәтіні</summary><div class="slide-transcript">
+<p>ДӘРІХАНА ТАБЛЕТКАСЫНЫҢ ҚҰРАМЫ · НҰСҚАУЛЫҚ БОЙЫНША</p>
+<p>Таблетка — 100% тазартылған Алтай мумиесі, бірақ дәрі емес</p>
+<p>«Золотое мумие», Эвалар</p>
+<p>20 таблетка — 1500 ₸</p>
+<p>ҚҰРАМЫ</p>
+<p>1 таблетка (0,2 г) = 200 мг тазартылған мумие</p>
+<p>ОРГАНИКАЛЫҚ ЗАТТАР</p>
+<p>~50 қосылыс: аминқышқылдары, шайыр тәрізді заттар, витаминдер, эфир майлары</p>
+<p>МИНЕРАЛДАР</p>
+<p>30-дан астам микро- және макроэлемент: Mg, P, Si, Fe, Zn, S, Cu, B</p>
+<p>ГУМИН ҚЫШҚЫЛДАРЫ</p>
+<p>Күніне 2 таблетка тәуліктік нормасының (12 мг) 24%-ын береді</p>
+<p>МӘРТЕБЕСІ</p>
+<p>Тағамға биологиялық белсенді қоспа (ББҚ), дәрі-дәрмек емес</p>
+<p>ҚАБЫЛДАУ</p>
+<p>14 жастан: күніне 2 рет 1 таблеткадан тамақпен, 1 ай; сүйек жарақатында 2 айға дейін</p>
+<p>ҚАРСЫ КӨРСЕТІЛІМДЕР</p>
+<p>Жеке төзбеушілік, жүктілік, бала емізу. Дәрігермен кеңесу қажет</p>
+<p>ӨНДІРУШІ</p>
+<p>«Эвалар», Бийск қ., Алтай өлкесі, Ресей</p>
+<p>Біздің түйін: таблетка мен табиғи тас майының белсенді заты бір — мумие. Айырмашылығы пішінінде: таблетка — сығымдалған құрғақ зат, табиғи тас майы — қою сұйық масса.</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-7" aria-label="7. Тәжірибе және салыстыру">
+<img src="assets/research/slide-07.webp" alt="7-слайд. Тәжірибе және салыстыру. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>07 · Тәжірибе және салыстыру — слайд мәтіні</summary><div class="slide-transcript">
+<p>ТӘЖІРИБЕ ЖӘНЕ САЛЫСТЫРУ</p>
+<p>Сусабынға қосқанда таблетка іріп кетті, табиғи тас майы ірімеді</p>
+<p>Табиғи тас майын сусабынға қосу</p>
+<p>ТАБИҒИ ТАС МАЙЫ</p>
+<p>✓ Сусабынға қосқанда ірімеді</p>
+<p>ДӘРІХАНА ТАБЛЕТКАСЫ</p>
+<p>✗ Іріп кетті</p>
+<p>Кез келген сусабынға қосқанда (Пантин, Фруктис, Просериус, Чистая линия)</p>
+<p>Табиғи тас майы</p>
+<p>«Золотое мумие» (Эвалар)</p>
+<p>Құрамы</p>
+<p>Қоспасыз</p>
+<p>200 мг тазартылған мумие (100%)</p>
+<p>Қолданылуы</p>
+<p>Ішке және сыртқа</p>
+<p>Тек ішке</p>
+<p>Бағасы</p>
+<p>Тегін</p>
+<p>20 таблетка — 1500 ₸</p>
+<p>Тазалығы</p>
+<p>Зертханада тексерілмеген</p>
+<p>GMP бойынша тексерілген</p>
+<p>Болжам: таблетка — сығымдалған құрғақ мумие, ол сусабынның қою ортасында толық ерімей, түйіршіктеніп кетуі мүмкін. Зертханада тексеру қажет.</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-8" aria-label="8. Сауалнама нәтижелері">
+<img src="assets/research/slide-08.webp" alt="8-слайд. Сауалнама нәтижелері. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>08 · Сауалнама нәтижелері — слайд мәтіні</summary><div class="slide-transcript">
+<p>САУАЛНАМА · 143 ҚАТЫСУШЫ</p>
+<p>Қолданғандардың үштен бірі тас майын асқазан ауырғанда ішкен</p>
+<p>143</p>
+<p>қатысушы</p>
+<p>76 ауыл тұрғыны, 38 оқушы, 29 мұғалім</p>
+<p>72%</p>
+<p>Тарбағатайдан</p>
+<p>103 адам</p>
+<p>52,4%</p>
+<p>қолданған</p>
+<p>75 адам</p>
+<p>47,6%</p>
+<p>қолданбаған</p>
+<p>68 адам</p>
+<p>ҚОЛДАНУ МАҚСАТТАРЫ (75 АДАМ)</p>
+<p>Асқазан ауырғанда</p>
+<p>25 · 33,3%</p>
+<p>Бронх пен жөтелге</p>
+<p>10 · 13,3%</p>
+<p>Теміреткі, күйікке</p>
+<p>8 · 10,7%</p>
+<p>Қант диабетіне</p>
+<p>1 · 1,3%</p>
+<p>Шаш жууға</p>
+<p>1 · 1,3%</p>
+<p>Басқа / көрсетілмеген</p>
+<p>30 · 40,0%</p>
+<p>САУАЛНАМАҒА КІРУ</p>
+<p>Телефонмен сканерлеңіз немесе сілтемені басыңыз:</p>
+<p>https://aitolkyn041097-cmyk.github.io/jartas-jasyryn-shipa/</p>
+</div></details>
+</article>
+<article class="research-slide" id="research-slide-9" aria-label="9. Зерттеу бейнежазбасы">
+<div class="research-video-heading"><span class="eyebrow">09 · Бейнежазба</span><h2>Зерттеу бейнежазбасы</h2></div><video class="research-video" controls playsinline preload="none" poster="assets/research/video-poster.webp" aria-label="Презентациядағы зерттеу бейнежазбасы"><source src="assets/research/research-video.mp4" type="video/mp4">Браузеріңіз бейнені қолдамайды. <a href="assets/research/research-video.mp4">Бейнежазбаны жүктеу</a></video><p class="research-video-caption">Презентацияның 9-слайдындағы бейнежазба · 3:08</p>
+</article>
+<article class="research-slide" id="research-slide-10" aria-label="10. Қорытынды">
+<img src="assets/research/slide-10.webp" alt="10-слайд. Қорытынды. Толық мәтін төменде." width="1600" height="900" loading="lazy" decoding="async"><details><summary>10 · Қорытынды — слайд мәтіні</summary><div class="slide-transcript">
+<p>ҚОРЫТЫНДЫ</p>
+<p>Болжам расталды: сүзіп тазартылған табиғи тас майы — қоспасыз әрі кең қолданылатын өнім</p>
+<p>Тазарту</p>
+<p>Еріту, тұндыру, бірнеше рет сүзу, буландыру арқылы үйде таза тас майы алынды.</p>
+<p>Қолданылуы</p>
+<p>Ішке — асқазанға; сыртқа — жара, күйік, сынған сүйекке.</p>
+<p>Салыстыру</p>
+<p>Таблетка сусабында іріп кетті, табиғи тас майы ірімеді.</p>
+<p>Келесі қадам</p>
+<p>Зертханалық талдау, шаш өсуін өлшеу, ауылдастарға жаднама.</p>
+<p>Дайын таза тас майы</p>
+<p>Тас майын ішке дәрігермен кеңескеннен кейін ғана қолдану керек.</p>
+<p>Назарларыңызға рахмет!</p>
+</div></details>
+</article>
+</section></div>
+
 <!-- ================= ЖОБА ТУРАЛЫ ================= -->
 <div class="view" id="view-about">
   <section class="wrap" style="padding-top:130px;">
@@ -527,7 +762,7 @@ footer .f-quote{font-style:italic; margin-top:14px; font-family:var(--font-displ
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Диаграммалар арқылы визуализациялау</li>
         </ul>
 
-        <div class="glass" style="padding:18px 20px; margin-top:28px; border-color:rgba(200,162,74,0.3);">
+        <div class="glass" style="padding:18px 20px; margin-top:28px; border-color:rgba(166,92,23,0.3);">
           <p style="margin:0; font-size:.92rem; color:var(--c-ink-dim);">⚠️ Ескерту: бұл жоба тастың майының ауруды емдейтіні туралы медициналық уәде бермейді. Барлық тұжырымдар «халықтық тәжірибеде қолданылған» немесе «дәстүрлі түрде пайдаланылған» деген бейтарап ғылыми қалыпта беріледі.</p>
         </div>
       </div>
@@ -867,6 +1102,7 @@ document.addEventListener('click', (e) => {
 
 /* ---------------- navigation between views ---------------- */
 function switchView(name) {
+  if (name !== 'research') document.querySelectorAll('#view-research video').forEach(video => video.pause());
   if (name === 'survey' && state.view !== 'survey') state.previousView = state.view;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
@@ -1090,7 +1326,7 @@ async function saveResponses(records) {
 
 /* ---------------- confetti ---------------- */
 function launchConfetti() {
-  const colors = ['#c8a24a', '#e0bd6a', '#8a5a34', '#f3efe4', '#7fae7a'];
+  const colors = ['#a65c17', '#925018', '#c27a2c', '#2a221c', '#547653'];
   const host = document.getElementById('done-screen');
   for (let i = 0; i < 60; i++) {
     const p = document.createElement('div');
@@ -1119,7 +1355,8 @@ function tally(arr, key) {
   return m;
 }
 
-const RESEARCH_STATS = {
+// Бекітілген зерттеу нәтижелері: жаңа жауаптар бұл сандарды өзгертпейді.
+const RESEARCH_STATS = Object.freeze({
   total: 143,
   tarbagatai: 103,
   used: 75,
@@ -1132,7 +1369,7 @@ const RESEARCH_STATS = {
     { label: 'Шаш жууға қолданған', chartLabel: 'Шаш жуу', value: 1 },
     { label: 'Басқа немесе көрсетілмеген', chartLabel: 'Басқа / көрсетілмеген', value: 30 },
   ],
-};
+});
 
 function formatPercent(value, base) {
   return `${((value / base) * 100).toFixed(1).replace('.', ',')}%`;
@@ -1181,9 +1418,9 @@ function renderSummaryTable() {
     RESEARCH_STATS.purposes.map(item => `<tr><td>${item.label}</td><td>${item.value}</td><td>${formatPercent(item.value, RESEARCH_STATS.used)}</td><td>Қолданған 75 адамнан</td></tr>`).join('');
 }
 
-const CHART_PALETTE = ['#c8a24a', '#e0bd6a', '#8a5a34', '#7fae7a', '#5b6779', '#cfc9ba'];
-const CHART_TEXT = '#f3efe4';
-const CHART_GRID = 'rgba(243,239,228,0.08)';
+const CHART_PALETTE = ['#a65c17', '#925018', '#c27a2c', '#547653', '#7a6654', '#5a4636'];
+const CHART_TEXT = '#2a221c';
+const CHART_GRID = 'rgba(42,34,28,0.08)';
 
 function diagramBar(item, base, color) {
   const percent = (item.value / base) * 100;
@@ -1259,7 +1496,7 @@ function drawRegionChart() {
       labels: ['Тарбағатайлықтар', 'Басқа өңірден'],
       datasets: [{
         data: [RESEARCH_STATS.tarbagatai, RESEARCH_STATS.total - RESEARCH_STATS.tarbagatai],
-        backgroundColor: [CHART_PALETTE[0], CHART_PALETTE[4]], borderColor: '#142235', borderWidth: 2,
+        backgroundColor: [CHART_PALETTE[0], CHART_PALETTE[4]], borderColor: '#fffdf9', borderWidth: 2,
       }],
     },
     options: baseOptions(),
@@ -1274,7 +1511,7 @@ function drawUsageChart() {
       labels: ['Қолданып көрген', 'Қолданып көрмеген'],
       datasets: [{
         data: [RESEARCH_STATS.used, RESEARCH_STATS.notUsed],
-        backgroundColor: [CHART_PALETTE[3], CHART_PALETTE[4]], borderColor: '#142235', borderWidth: 2,
+        backgroundColor: [CHART_PALETTE[3], CHART_PALETTE[4]], borderColor: '#fffdf9', borderWidth: 2,
       }],
     },
     options: baseOptions(),
@@ -1310,7 +1547,7 @@ function drawGroupPie(data, nAuyl, nOqushy, nMugalim) {
     type: 'pie',
     data: {
       labels: ['Ауыл тұрғыны', 'Мектеп оқушысы', 'Мұғалім'],
-      datasets: [{ data: [nAuyl, nOqushy, nMugalim], backgroundColor: CHART_PALETTE, borderColor: '#142235', borderWidth: 2 }]
+      datasets: [{ data: [nAuyl, nOqushy, nMugalim], backgroundColor: CHART_PALETTE, borderColor: '#fffdf9', borderWidth: 2 }]
     },
     options: baseOptions()
   });
@@ -1343,7 +1580,7 @@ function drawSourceDoughnut(data) {
   const ctx = document.getElementById('chart-source');
   state.charts.source = new Chart(ctx, {
     type: 'doughnut',
-    data: { labels, datasets: [{ data: labels.map(l => t[l]), backgroundColor: CHART_PALETTE.concat(['#3d4a5e', '#9c7b3e']), borderColor: '#142235', borderWidth: 2 }] },
+    data: { labels, datasets: [{ data: labels.map(l => t[l]), backgroundColor: CHART_PALETTE.concat(['#3d4a5e', '#9c7b3e']), borderColor: '#fffdf9', borderWidth: 2 }] },
     options: baseOptions()
   });
 }
@@ -1417,7 +1654,7 @@ function drawQualityChart(data) {
       datasets: [{
         data: labels.map(label => t[label] || 0),
         backgroundColor: [CHART_PALETTE[0], CHART_PALETTE[3], CHART_PALETTE[4]],
-        borderColor: '#142235',
+        borderColor: '#fffdf9',
         borderWidth: 2,
       }],
     },
